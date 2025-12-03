@@ -297,27 +297,306 @@ header.topbar {
   height: 14px;
 }
 
-/* Price sliders – two separate lines */
+/* Price slider – dual handle on single bar */
 
 .price-slider-wrap {
   margin-bottom: 8px;
 }
 
-.range-row {
-  margin-bottom: 10px;
+.dual-range-container {
+  padding: 4px 0 12px;
+}
+
+.dual-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+
+.price-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.price-label-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.price-currency {
+  font-size: 13px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.price-input {
+  width: 80px;
+  padding: 4px 6px;
+  font-size: 13px;
+  color: var(--text-main);
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.price-input:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.price-input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.price-input::-webkit-outer-spin-button,
+.price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.price-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.dual-range-wrapper {
+  position: relative;
+  height: 20px;
+  margin: 0 4px;
+}
+
+.dual-range-input {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  pointer-events: none;
+}
+
+.dual-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: all;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  border: none;
+  position: relative;
+  z-index: 2;
+  margin-top: -5px;
+}
+
+.dual-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.dual-range-input::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+}
+
+.dual-range-input::-webkit-slider-runnable-track {
+  height: 6px;
+  background: transparent;
+}
+
+.dual-range-input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  pointer-events: all;
+}
+
+.dual-range-input::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.dual-range-input::-moz-range-thumb:active {
+  transform: scale(1.1);
+}
+
+.dual-range-input::-moz-range-track {
+  height: 6px;
+  background: transparent;
+  border: none;
+}
+
+.dual-range-input::-moz-focus-outer {
+  border: 0;
+}
+
+.dual-range-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.dual-range-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+  transition: all 0.1s ease;
 }
 
 .range-row-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 12px;
   color: var(--text-muted);
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
+.range-row-header span:last-child {
+  font-weight: 500;
+  color: var(--text-main);
+  font-size: 13px;
+}
+
+.range-slider-item input[type="range"],
 .range-row input[type="range"] {
   width: 100%;
+  height: 6px;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.15);
+  outline: none;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+  padding: 0;
+}
+
+/* Webkit (Chrome, Safari, Edge) Track */
+.range-slider-item input[type="range"]::-webkit-slider-track,
+.range-row input[type="range"]::-webkit-slider-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.range-slider-item input[type="range"]:hover::-webkit-slider-track,
+.range-row input[type="range"]:hover::-webkit-slider-track {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Webkit Thumb */
+.range-slider-item input[type="range"]::-webkit-slider-thumb,
+.range-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.range-slider-item input[type="range"]::-webkit-slider-thumb:hover,
+.range-row input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.range-slider-item input[type="range"]::-webkit-slider-thumb:active,
+.range-row input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Firefox Track */
+.range-slider-item input[type="range"]::-moz-range-track,
+.range-row input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  transition: background 0.2s ease;
+  border: none;
+}
+
+.range-slider-item input[type="range"]:hover::-moz-range-track,
+.range-row input[type="range"]:hover::-moz-range-track {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Firefox Thumb */
+.range-slider-item input[type="range"]::-moz-range-thumb,
+.range-row input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.range-slider-item input[type="range"]::-moz-range-thumb:hover,
+.range-row input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.range-slider-item input[type="range"]::-moz-range-thumb:active,
+.range-row input[type="range"]::-moz-range-thumb:active {
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Remove Firefox focus outline */
+.range-slider-item input[type="range"]::-moz-focus-outer,
+.range-row input[type="range"]::-moz-focus-outer {
+  border: 0;
 }
 
 /* Size presets */
@@ -390,6 +669,7 @@ header.topbar {
 
 .size-inputs input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* Clear all button – squarer */
