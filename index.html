@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cotswolds Art – Desktop Layout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --max-width: 1380px;
+      --panel-radius: 10px;
+      --text-main: #ffffff;
+      --text-muted: #e0e0e0;
+      --divider: rgba(255, 255, 255, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(#0e2e06ab, #c0d1ba);
+      color: var(--text-main);
+    }
+
+    .max-width {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* ─── TOP BAR ───────────────────────────────────────────── */
+
+    header.topbar {
+      position: relative;
+      width: 100%;
+      background: hslar(0, 0%, 100%, 0.076);
+      padding: 14px 32px;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .profile-wrapper {
+      position: relative;
+    }
+
+    .profile-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+    }
+
+    .profile-menu {
+      position: absolute;
+      right: 0;
+      margin-top: 6px;
+      width: 150px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      padding: 6px 0;
+      display: none;
+      z-index: 50;
+    }
+
+    .profile-menu.show {
+      display: block;
+    }
+
+    .profile-menu button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--text-main);
+      text-align: left;
+      padding: 8px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .profile-menu button:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* ─── ANNOUNCEMENT BAR (SEPARATE BOX UNDER HEADER) ─────── */
+
+    .announcement-bar {
+      width: 100%;
+      padding: 10px 32px 0;
+    }
+
+    .announcement-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .announcement-box {
+      background: rgba(255, 255, 255, 0.19);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 6px 14px;
+    }
+
+    .announcement-text {
+      display: inline-block;
+      white-space: nowrap;
+      animation: ticker 18s linear infinite;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    /* ─── MAIN PAGE LAYOUT ─────────────────────────────────── */
+
+    .page {
+      padding: 16px 32px 32px;
+    }
+
+    /* Search + tabs row */
+
+    .search-tabs-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* tabs now sit next to search */
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+
+    .search-bar-wrapper {
+      flex: 0 0 420px;
+    }
+
+    .search-bar-wrapper input {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 22px;
+      font-size: 15px;
+    }
+
+    .tab {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      transition: font-size 0.12s ease, color 0.12s ease;
+    }
+
+    .tab:hover {
+      font-size: 16px;
+      color: var(--text-main);
+    }
+
+    .tab.active {
+      color: var(--text-main);
+      font-weight: 600;
+      /* underline removed */
+    }
+
+    /* ─── MAIN CONTENT PANEL (GRID + FILTERS) ──────────────── */
+
+    .main-panel {
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.19);
+      border-radius: var(--panel-radius);
+      padding: 20px 20px 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 18px;
+    }
+
+    /* Artwork grid – 4 cards per row */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(179, 179, 179, 0.25);
+      border-radius: 8px;
+      padding-top: 100%;
+    }
+
+    /* ─── FILTERS PANEL ───────────────────────────────────── */
+
+    .filters-panel {
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .filters-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .filter-group {
+      background: transparent;
+      margin: 0;
+      padding: 8px 10px;
+      border-top: 1px solid var(--divider);
+      border-bottom: none;
+    }
+
+    .filter-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .filter-header span.label {
+      font-weight: 500;
+    }
+
+    .caret {
+      font-size: 16px;
+      transition: transform 0.15s ease;
+    }
+
+    .filter-group.open .caret {
+      transform: rotate(180deg);
+    }
+
+    .filter-body {
+      margin-top: 8px;
+      display: none;
+    }
+
+    .filter-group.open .filter-body {
+      display: block;
+    }
+
+    /* square checkbox look */
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 0;
+      color: var(--text-muted);
+    }
+
+    .filter-option input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      appearance: none;
+      border-radius: 2px;
+      border: 1px solid #ffffff;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .filter-option input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      background: #ffffff;
+    }
+
+    .filters-panel input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Price sliders – two separate lines */
+
+    .price-slider-wrap {
+      margin-bottom: 8px;
+    }
+
+    .range-row {
+      margin-bottom: 10px;
+    }
+
+    .range-row-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .range-row input[type="range"] {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* Size presets */
+
+    .size-buttons {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .size-item {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .size-btn {
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid var(--divider);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 4px 0;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease;
+      text-align: center;
+    }
+
+    .size-btn.active,
+    .size-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      color: #000;
+    }
+
+    .size-caption {
+      margin-top: 2px;
+    }
+
+    .size-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .size-inputs label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      color: var(--text-muted);
+    }
+
+    .size-inputs input {
+      border-radius: 4px;
+      border: 1px solid rgb(255, 255, 255);
+      background: rgba(0, 0, 0, 0.25);
+      padding: 4px 6px;
+      color: var(--text-main);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .size-inputs input::-webkit-outer-spin-button,
+    .size-inputs input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .size-inputs input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    /* Clear all button – squarer */
+
+    .clear-all {
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid rgb(255, 255, 255);
+      background: transparent;
+      color: var(--text-main);
+      padding: 7px 0;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.12s ease;
+    }
+
+    .clear-all:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Basic responsiveness */
+
+    @media (max-width: 1300px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .main-panel {
+        grid-template-columns: minmax(0, 1fr) 240px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .search-tabs-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .main-panel {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-inner max-width">
+      <div class="logo">Cotswolds Art</div>
+      <div class="profile-wrapper">
+        <div class="profile-icon" id="profileToggle">👤</div>
+        <div class="profile-menu" id="profileMenu">
+          <button type="button">Log in</button>
+          <button type="button">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ANNOUNCEMENT BOX UNDER HEADER -->
+  <div class="announcement-bar">
+    <div class="announcement-inner">
+      <div class="announcement-box">
+        <div class="announcement-text">
+          New winter collection now live • Free shipping on orders over £100 •
+          Explore the VR gallery for immersive tours •
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN PAGE -->
+  <main class="page">
+    <div class="max-width">
+      <!-- Search + Tabs row -->
+      <section class="search-tabs-row">
+        <div class="search-bar-wrapper">
+          <input
+            id="mainSearch"
+            type="text"
+            placeholder="Search"
+          />
+        </div>
+        <div class="tabs">
+          <button class="tab active" data-tab="shop">Shop</button>
+          <button class="tab" data-tab="vr">VR Gallery</button>
+          <button class="tab" data-tab="blog">360 Blog</button>
+        </div>
+      </section>
+
+      <!-- Main content panel -->
+      <section class="main-panel">
+        <!-- Artwork grid -->
+        <div class="grid">
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+        </div>
+
+        <!-- Filters panel -->
+        <aside class="filters-panel">
+          <div class="filters-title">Filters</div>
+
+          <!-- Sort (open by default) -->
+          <div class="filter-group open" data-filter="sort">
+            <div class="filter-header">
+              <span class="label">Sort</span>
+              <span class="caret">▾</span>
+            </div>
+            <div class="filter-body">
+              <label class="filter-option">
+                <input type="checkbox" class="sort-option" data-default="true" />
+                <span>Best match</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="sort-option" />
+                <span>Date listed</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="sort-option" />
+                <span>Price: Low to High</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="sort-option" />
+                <span>Price: High to Low</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Price (two separate sliders) -->
+          <div class="filter-group" data-filter="price">
+            <div class="filter-header">
+              <span class="label">Price</span>
+              <span class="caret">▾</span>
+            </div>
+            <div class="filter-body">
+              <div class="price-slider-wrap">
+                <div class="range-row">
+                  <div class="range-row-header">
+                    <span>Min price</span>
+                    <span id="priceMinValue">£0</span>
+                  </div>
+                  <input
+                    id="priceMin"
+                    type="range"
+                    min="0"
+                    max="10000"
+                    step="50"
+                    value="0"
+                  />
+                </div>
+
+                <div class="range-row">
+                  <div class="range-row-header">
+                    <span>Max price</span>
+                    <span id="priceMaxValue">£10,000+</span>
+                  </div>
+                  <input
+                    id="priceMax"
+                    type="range"
+                    min="0"
+                    max="10000"
+                    step="50"
+                    value="10000"
+                  />
+                </div>
+              </div>
+
+              <label class="filter-option">
+                <input type="checkbox" id="freeShipping" />
+                <span>Free shipping</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" id="onSale" />
+                <span>On sale</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Size -->
+          <div class="filter-group" data-filter="size">
+            <div class="filter-header">
+              <span class="label">Size</span>
+              <span class="caret">▾</span>
+            </div>
+            <div class="filter-body">
+              <div class="size-buttons">
+                <div class="size-item">
+                  <button type="button" class="size-btn" data-size="S">S</button>
+                  <div class="size-caption">10 cm +</div>
+                </div>
+                <div class="size-item">
+                  <button type="button" class="size-btn" data-size="M">M</button>
+                  <div class="size-caption">60 cm +</div>
+                </div>
+                <div class="size-item">
+                  <button type="button" class="size-btn" data-size="L">L</button>
+                  <div class="size-caption">120 cm +</div>
+                </div>
+                <div class="size-item">
+                  <button type="button" class="size-btn" data-size="XL">XL</button>
+                  <div class="size-caption">150 cm +</div>
+                </div>
+              </div>
+              <div class="size-inputs">
+                <label>
+                  Height (cm)
+                  <input type="number" id="heightCm" min="0" />
+                </label>
+                <label>
+                  Width (cm)
+                  <input type="number" id="widthCm" min="0" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="filter-group" data-filter="category">
+            <div class="filter-header">
+              <span class="label">Category</span>
+              <span class="caret">▾</span>
+            </div>
+            <div class="filter-body">
+              <label class="filter-option">
+                <input type="checkbox" class="category-option" data-default="true" />
+                <span>All art</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="category-option" />
+                <span>Painting</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="category-option" />
+                <span>Prints</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="category-option" />
+                <span>Photography</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="category-option" />
+                <span>Sculpture</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="category-option" />
+                <span>Drawing</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="category-option" />
+                <span>Collage</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Subject -->
+          <div class="filter-group" data-filter="subject">
+            <div class="filter-header">
+              <span class="label">Subject</span>
+              <span class="caret">▾</span>
+            </div>
+            <div class="filter-body">
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" data-default="true" />
+                <span>All art</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Abstract &amp; conceptual</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Animals &amp; birds</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Architecture &amp; cities</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Cars, bikes &amp; transport</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Flowers &amp; plants</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Landscapes, sea &amp; sky</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Nudes &amp; erotic</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Portraits &amp; people</span>
+              </label>
+              <label class="filter-option">
+                <input type="checkbox" class="subject-option" />
+                <span>Still life</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Clear all -->
+          <button type="button" class="clear-all" id="clearFilters">
+            Clear all
+          </button>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Profile dropdown
+    const profileToggle = document.getElementById("profileToggle");
+    const profileMenu = document.getElementById("profileMenu");
+
+    profileToggle.addEventListener("click", () => {
+      profileMenu.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!profileMenu.contains(e.target) && !profileToggle.contains(e.target)) {
+        profileMenu.classList.remove("show");
+      }
+    });
+
+    // Tabs – visual only
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+      });
+    });
+
+    // Accordion filter groups
+    document.querySelectorAll(".filter-group").forEach((group) => {
+      const header = group.querySelector(".filter-header");
+      header.addEventListener("click", (e) => {
+        if (e.target.closest(".filter-header")) {
+          group.classList.toggle("open");
+        }
+      });
+    });
+
+    // Separate Min / Max price sliders
+    const priceMin = document.getElementById("priceMin");
+    const priceMax = document.getElementById("priceMax");
+    const priceMinValue = document.getElementById("priceMinValue");
+    const priceMaxValue = document.getElementById("priceMaxValue");
+
+    function formatMoney(v, isMax) {
+      const maxCap = parseInt(priceMax.max, 10);
+      if (isMax && v === maxCap) {
+        return "£" + Number(v).toLocaleString("en-GB") + "+";
+      }
+      return "£" + Number(v).toLocaleString("en-GB");
+    }
+
+    function handlePriceInput(e) {
+      let min = parseInt(priceMin.value, 10);
+      let max = parseInt(priceMax.value, 10);
+
+      if (min > max) {
+        if (e.target === priceMin) {
+          max = min;
+          priceMax.value = max;
+        } else {
+          min = max;
+          priceMin.value = min;
+        }
+      }
+
+      priceMinValue.textContent = formatMoney(min, false);
+      priceMaxValue.textContent = formatMoney(max, true);
+    }
+
+    priceMin.addEventListener("input", handlePriceInput);
+    priceMax.addEventListener("input", handlePriceInput);
+    handlePriceInput({ target: priceMax });
+
+    // Size presets – single active
+    document.querySelectorAll(".size-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const already = btn.classList.contains("active");
+        document
+          .querySelectorAll(".size-btn")
+          .forEach((b) => b.classList.remove("active"));
+        if (!already) btn.classList.add("active");
+      });
+    });
+
+    // Clear all filters
+    document.getElementById("clearFilters").addEventListener("click", () => {
+      document
+        .querySelectorAll(".filters-panel input[type='checkbox']")
+        .forEach((cb) => (cb.checked = false));
+
+      document
+        .querySelectorAll(".filters-panel input[data-default='true']")
+        .forEach((cb) => (cb.checked = true));
+
+      priceMin.value = priceMin.min;
+      priceMax.value = priceMax.max;
+      handlePriceInput({ target: priceMax });
+
+      document
+        .querySelectorAll(".size-btn")
+        .forEach((b) => b.classList.remove("active"));
+      document.getElementById("heightCm").value = "";
+      document.getElementById("widthCm").value = "";
+    });
+  </script>
+</body>
+</html>
