@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <title>Cotswolds Art – Desktop Layout</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- path goes up one folder from /script to root, then into /css -->
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <!-- TOP BAR -->
@@ -105,34 +104,62 @@
             </div>
             <div class="filter-body">
               <div class="price-slider-wrap">
-                <div class="range-row">
-                  <div class="range-row-header">
-                    <span>Min price</span>
-                    <span id="priceMinValue">£0</span>
+                <div class="dual-range-container">
+                  <div class="dual-range-labels">
+                    <div class="price-label-group">
+                      <span class="price-label-text">Minimum</span>
+                      <div class="price-input-wrapper">
+                        <span class="price-currency">£</span>
+                        <input
+                          type="number"
+                          id="priceMinInput"
+                          class="price-input"
+                          min="0"
+                          max="10000"
+                          step="50"
+                          value="0"
+                        />
+                      </div>
+                    </div>
+                    <div class="price-label-group">
+                      <span class="price-label-text">Maximum</span>
+                      <div class="price-input-wrapper">
+                        <span class="price-currency">£</span>
+                        <input
+                          type="number"
+                          id="priceMaxInput"
+                          class="price-input"
+                          min="0"
+                          max="10000"
+                          step="50"
+                          value="10000"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    id="priceMin"
-                    type="range"
-                    min="0"
-                    max="10000"
-                    step="50"
-                    value="0"
-                  />
-                </div>
-
-                <div class="range-row">
-                  <div class="range-row-header">
-                    <span>Max price</span>
-                    <span id="priceMaxValue">£10,000+</span>
+                  <div class="dual-range-wrapper">
+                    <input
+                      id="priceMin"
+                      type="range"
+                      min="0"
+                      max="10000"
+                      step="50"
+                      value="0"
+                      class="dual-range-input"
+                    />
+                    <input
+                      id="priceMax"
+                      type="range"
+                      min="0"
+                      max="10000"
+                      step="50"
+                      value="10000"
+                      class="dual-range-input"
+                    />
+                    <div class="dual-range-track">
+                      <div class="dual-range-fill" id="rangeFill"></div>
+                    </div>
                   </div>
-                  <input
-                    id="priceMax"
-                    type="range"
-                    min="0"
-                    max="10000"
-                    step="50"
-                    value="10000"
-                  />
                 </div>
               </div>
 
@@ -282,108 +309,7 @@
     </div>
   </main>
 
-  <script>
-    // Profile dropdown
-    const profileToggle = document.getElementById("profileToggle");
-    const profileMenu = document.getElementById("profileMenu");
-
-    profileToggle.addEventListener("click", () => {
-      profileMenu.classList.toggle("show");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!profileMenu.contains(e.target) && !profileToggle.contains(e.target)) {
-        profileMenu.classList.remove("show");
-      }
-    });
-
-    // Tabs – visual only
-    document.querySelectorAll(".tab").forEach((tab) => {
-      tab.addEventListener("click", () => {
-        document
-          .querySelectorAll(".tab")
-          .forEach((t) => t.classList.remove("active"));
-        tab.classList.add("active");
-      });
-    });
-
-    // Accordion filter groups
-    document.querySelectorAll(".filter-group").forEach((group) => {
-      const header = group.querySelector(".filter-header");
-      header.addEventListener("click", (e) => {
-        if (e.target.closest(".filter-header")) {
-          group.classList.toggle("open");
-        }
-      });
-    });
-
-    // Separate Min / Max price sliders
-    const priceMin = document.getElementById("priceMin");
-    const priceMax = document.getElementById("priceMax");
-    const priceMinValue = document.getElementById("priceMinValue");
-    const priceMaxValue = document.getElementById("priceMaxValue");
-
-    function formatMoney(v, isMax) {
-      const maxCap = parseInt(priceMax.max, 10);
-      if (isMax && v === maxCap) {
-        return "£" + Number(v).toLocaleString("en-GB") + "+";
-      }
-      return "£" + Number(v).toLocaleString("en-GB");
-    }
-
-    function handlePriceInput(e) {
-      let min = parseInt(priceMin.value, 10);
-      let max = parseInt(priceMax.value, 10);
-
-      if (min > max) {
-        if (e.target === priceMin) {
-          max = min;
-          priceMax.value = max;
-        } else {
-          min = max;
-          priceMin.value = min;
-        }
-      }
-
-      priceMinValue.textContent = formatMoney(min, false);
-      priceMaxValue.textContent = formatMoney(max, true);
-    }
-
-    priceMin.addEventListener("input", handlePriceInput);
-    priceMax.addEventListener("input", handlePriceInput);
-    handlePriceInput({ target: priceMax });
-
-    // Size presets – single active
-    document.querySelectorAll(".size-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const already = btn.classList.contains("active");
-        document
-          .querySelectorAll(".size-btn")
-          .forEach((b) => b.classList.remove("active"));
-        if (!already) btn.classList.add("active");
-      });
-    });
-
-    // Clear all filters
-    document.getElementById("clearFilters").addEventListener("click", () => {
-      document
-        .querySelectorAll(".filters-panel input[type='checkbox']")
-        .forEach((cb) => (cb.checked = false));
-
-      document
-        .querySelectorAll(".filters-panel input[data-default='true']")
-        .forEach((cb) => (cb.checked = true));
-
-      priceMin.value = priceMin.min;
-      priceMax.value = priceMax.max;
-      handlePriceInput({ target: priceMax });
-
-      document
-        .querySelectorAll(".size-btn")
-        .forEach((b) => b.classList.remove("active"));
-      document.getElementById("heightCm").value = "";
-      document.getElementById("widthCm").value = "";
-    });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
+
